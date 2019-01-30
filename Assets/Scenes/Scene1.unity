@@ -173,7 +173,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1282915832
 GameObject:
@@ -279,7 +279,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae2d27f2ea91c83419d6aa97694238d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Shadow: {fileID: 1307556038908002, guid: 9acdaa36615247f41b3d101487aaf202, type: 2}
+  Shadow: {fileID: 1405123233755138, guid: 9acdaa36615247f41b3d101487aaf202, type: 2}
+  Platform: {fileID: 1876974638190474, guid: e13413de2ae613944b64770d9e56f69d, type: 2}
+  ShadowClone1: {fileID: 0}
+  ShadowClone2: {fileID: 0}
+  ShadowClone3: {fileID: 0}
+  ShadowClone4: {fileID: 0}
 --- !u!4 &2034592749
 Transform:
   m_ObjectHideFlags: 0
@@ -291,5 +296,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

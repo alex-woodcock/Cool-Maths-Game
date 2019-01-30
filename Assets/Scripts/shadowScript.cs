@@ -4,29 +4,32 @@ using UnityEngine;
 
 public class shadowScript : MonoBehaviour {
     private int type = 0;
-    private int answer = 0;
+    public int answer = 0;
     bool mouseOver = false;
+    public TextMesh textMesh;
+    public Canvas myCanvas;
     //1 = blue
     //2 = green
     //3 = red
     //4 = yellow
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    // Use this for initialization
+    void Start () {
+        myCanvas = GetComponent<Canvas>();
+        textMesh = myCanvas.GetComponent<TextMesh>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        
-	}
+        textMesh.text = "blahblah";
+    }
 
     void OnInstantiation(int typeData)
     {
         type = typeData;
     }
 
-    void OnQuestion(int answerData)
+    public void OnQuestion(int answerData)
     {
         answer = answerData;
     }
