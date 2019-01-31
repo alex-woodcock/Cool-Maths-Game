@@ -18,15 +18,15 @@ public class platformScript : MonoBehaviour {
 
     void OnInstantiation(int typeData)
     {
-        if (typeData == 1)
+        if (typeData == 0)
         {
             colour = new Color(0f, 0f, 1f);
         }
-        else if (typeData == 2)
+        else if (typeData == 1)
         {
             colour = new Color(0f, 0.7333f, 0f);
         }
-        else if (typeData == 3)
+        else if (typeData == 2)
         {
             colour = new Color(1f, 0.0157f, 0.0431f);
         }

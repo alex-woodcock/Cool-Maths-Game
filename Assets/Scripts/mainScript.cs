@@ -1,64 +1,156 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class mainScript : MonoBehaviour {
     public GameObject Shadow;
     public GameObject Platform;
+    public GameObject ShadowClone0;
+    public shadowScript SCS0;
     public GameObject ShadowClone1;
+    public shadowScript SCS1;
     public GameObject ShadowClone2;
+    public shadowScript SCS2;
     public GameObject ShadowClone3;
-    public GameObject ShadowClone4;
+    public shadowScript SCS3;
+    
+    shadowScript SendDataTempVar;
+    System.Random rand = new System.Random();
+    List<string> shadowClones = new List<string>(4) { "SCS0", "SCS1", "SCS2", "SCS3" };
+    List<string> operators = new List<string>(4) { "+", "-", "*", "/" };
+    int operatorKey = 0;
+    int numberOne=1;
+    int numberTwo=1;
+    int solution=0;
+    int solutionShadow = 0;
+    public string questionString = "";
+    public int score;
+    int noRepeats;
+    int solutionBuffer;
+    public bool toClick = false;
+    public int givenType = 0;
 
-	// Use this for initialization
-	void Start () {
-        for (int i=1; i<5; i++)
+    // Use this for initialization
+    void Start () {
+        for (int i=0; i<4; i++)
         {
-            GameObject shadowClone = Instantiate(Shadow, new Vector3((i-2)*3+0.5f, -1f,-1f), Quaternion.Euler(new Vector3(0,0,0)));
+            GameObject shadowClone = Instantiate(Shadow, new Vector3((i-1)*3+0.5f, -1f,-1f), Quaternion.Euler(new Vector3(0,0,0)));
             shadowClone.gameObject.name = "shadow"+i.ToString();
             //shadowClone.GetComponent("Canvas").name = "Canvas" + i.ToString();
             shadowClone.SendMessage("OnInstantiation", i);
-            if (i==1)
+            shadowClone.GetComponent<shadowScript>().myName = shadowClone;
+            if (i==0)
+            {
+                ShadowClone0 = shadowClone;
+                SCS0 = ShadowClone0.GetComponent<shadowScript>();
+            }
+            else if (i==1)
             {
                 ShadowClone1 = shadowClone;
+                SCS1 = ShadowClone1.GetComponent<shadowScript>();
             }
-            else if (i==2)
+            else if (i == 2)
             {
                 ShadowClone2 = shadowClone;
-            }
-            else if (i == 3)
-            {
-                ShadowClone3 = shadowClone;
+                SCS2 = ShadowClone2.GetComponent<shadowScript>();
             }
             else
             {
-                ShadowClone4 = shadowClone;
+                ShadowClone3 = shadowClone;
+                SCS3 = ShadowClone3.GetComponent<shadowScript>();
             }
-            GameObject platformClone = Instantiate(Platform, new Vector2((i - 2) * 3 + 0.5f, -1.25f), Quaternion.Euler(new Vector3(0, 0, 0)));
+            GameObject platformClone = Instantiate(Platform, new Vector2((i - 1) * 3 + 0.5f, -1.25f), Quaternion.Euler(new Vector3(0, 0, 0)));
             platformClone.gameObject.name = "platform" + i.ToString();
             platformClone.SendMessage("OnInstantiation", i);
         }
-		
-	}
+        //Question();
+    }
 	
 	// Update is called once per frame
 	void Update () {
         //ShadowClone1.GetComponent<shadowScript>().OnQuestion(69);
-        ShadowClone1.GetComponent<shadowScript>().answer = 69;
-        ShadowClone1.GetComponent<Canvas>().GetComponent<TextMesh>().text = 420.ToString();
+        if (toClick)
+        {
+            toClick = false;
+            Clicked(givenType);
+        }
+        //Question();
         //Shadow.SendMessage("OnQuestion", 69);
 	}
 
+    public void Clicked(int type)
+    {
+        //this stuff is done later in Question(). It seems more fitting to check there.
+        
+        if (type == solutionShadow)
+        {
+            score++;
+        }
+        else
+        {
+            score--;
+        }
+        solutionBuffer = type;
+
+        Question();
+    }
+
     void Question()
     {
-        for (int i=1; i<5; i++)
+        operatorKey = rand.Next(0, 3);///////TODO - THIS DOESNT ALLOW FOR DIVISION CAUSE DIVISION IS HARD
+        numberOne = rand.Next(1, 12);
+        numberTwo = rand.Next(1, 12);
+        solutionShadow = rand.Next(1, 5);
+        questionString = numberOne.ToString();
+        if (operatorKey==0)
         {
-            Shadow.SendMessage("OnQuestion", 42);
+            questionString += "+";
+            solution = numberOne + numberTwo;
+        }
+        else if (operatorKey == 1)
+        {
+            questionString += "-";
+            solution = numberOne - numberTwo;
+        }
+        else if (operatorKey == 2)
+        {
+            questionString += "*";
+            solution = numberOne * numberTwo;
+        }
+        else
+        {
+            questionString += "/";
+            solution = numberOne / numberTwo;
+        }
+        questionString += numberTwo.ToString()+"=";
+        int iForeach = 0;
+        foreach (string i in shadowClones)
+        {
+            noRepeats = solution;
+            iForeach++;
+            if (iForeach==solutionShadow)
+            {
+                SendData(i, solution);
+                
+            }
+            else
+            {
+                while (noRepeats==solution)
+                {
+                    noRepeats = rand.Next(-11, 144);
+                }
+                SendData(i, noRepeats);
+                
+                
+            }
         }
     }
 
-    public static void Clicked(int type, int answer)
+    void SendData(string address, int data)
     {
-
+        SendDataTempVar = (shadowScript)GetType().GetField(address).GetValue(this);
+        SendDataTempVar.SetText(data);
+        GameObject.Find("QuestionTextBox").GetComponent<textBoxScript>().text = questionString;
     }
 }

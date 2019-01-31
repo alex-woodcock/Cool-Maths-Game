@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224770228290970196}
   - component: {fileID: 212103974095584430}
   - component: {fileID: 114352837589484564}
-  - component: {fileID: 223759670328559610}
+  - component: {fileID: 65008297081530714}
   m_Layer: 0
   m_Name: shadow
   m_TagString: Untagged
@@ -83,6 +83,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &65008297081530714
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1405123233755138}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!102 &102122143009886972
 TextMesh:
   serializedVersion: 3
@@ -131,9 +143,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5977a6e1292d6fc4e82ab9621f03419d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myName: {fileID: 0}
   answer: 0
-  textMesh: {fileID: 0}
   myCanvas: {fileID: 0}
+  sprite0: {fileID: 21300000, guid: 17c1f267b7270af40b519bc0b4001c03, type: 3}
+  sprite1: {fileID: 21300000, guid: 13f9dd4a97c36d54a837d290ce0c7df1, type: 3}
+  sprite2: {fileID: 21300000, guid: c67318911d7c8d84f8eda34c26d664ed, type: 3}
+  sprite3: {fileID: 21300000, guid: 01ca07cb8024fa348b79d52dc643f00b, type: 3}
+  sprite4: {fileID: 21300000, guid: f71feab898f85eb4e9258742a9011427, type: 3}
+  sprite5: {fileID: 21300000, guid: 1f30fbfc8da2eff4fafc8bf3c082a356, type: 3}
+  sprite6: {fileID: 21300000, guid: c0ced39e4101b1c40baf2ea898cdb3b3, type: 3}
+  sprite7: {fileID: 21300000, guid: 6b6a8505aa9575241b6ffcfb2c92865f, type: 3}
+  sprite8: {fileID: 21300000, guid: 2619b1b7cba81aa4aa76944e39193215, type: 3}
+  sprite9: {fileID: 21300000, guid: 42f7b283a0473d54cb0e3c93595662e3, type: 3}
 --- !u!212 &212103974095584430
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -180,26 +202,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!223 &223759670328559610
-Canvas:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1405123233755138}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!223 &223763683524198588
 Canvas:
   m_ObjectHideFlags: 1
@@ -235,7 +237,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.2, y: -0.4}
+  m_AnchoredPosition: {x: 1.2, y: 0.8}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224770228290970196
@@ -250,7 +252,7 @@ RectTransform:
   m_Children:
   - {fileID: 224309392741831738}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

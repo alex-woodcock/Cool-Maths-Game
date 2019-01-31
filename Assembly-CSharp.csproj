@@ -61,12 +61,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\platformScript.cs" />
+    <Compile Include="Assets\mainScriptBackUp.cs" />
     <Compile Include="Assets\platformScriptBackUp.cs" />
     <Compile Include="Assets\Scripts\mainScript.cs" />
-    <Compile Include="Assets\Scripts\mainScriptBackUp.cs" />
+    <Compile Include="Assets\Scripts\platformScript.cs" />
     <Compile Include="Assets\Scripts\shadowScript.cs" />
-    <Compile Include="Assets\Scripts\shadowScriptBackUp.cs" />
+    <Compile Include="Assets\Scripts\textBoxScript.cs" />
+    <Compile Include="Assets\Scripts\UICanvasScript.cs" />
+    <Compile Include="Assets\shadowScriptBackUp.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
