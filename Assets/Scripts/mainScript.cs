@@ -6,31 +6,24 @@ using System;
 public class mainScript : MonoBehaviour {
     public GameObject Shadow;
     public GameObject Platform;
-    public GameObject ShadowClone0;
-    public shadowScript SCS0;
-    public GameObject ShadowClone1;
-    public shadowScript SCS1;
-    public GameObject ShadowClone2;
-    public shadowScript SCS2;
-    public GameObject ShadowClone3;
-    public shadowScript SCS3;
+    public GameObject ShadowClone0, ShadowClone1, ShadowClone2, ShadowClone3;
+    public shadowScript SCS0, SCS1, SCS2, SCS3;
     
     shadowScript SendDataTempVar;
     System.Random rand = new System.Random();
     List<string> shadowClones = new List<string>(4) { "SCS0", "SCS1", "SCS2", "SCS3" };
-    List<string> operators = new List<string>(4) { "+", "-", "*", "/" };
+    //List<string> operators = new List<string>(4) { "+", "-", "*", "/" };
     int operatorKey = 0;
     int numberOne=1;
     int numberTwo=1;
     int solution=0;
-    int solutionShadow = 0;
+    public int solutionShadow = 0;
     public string questionString = "";
     public int score;
     int noRepeats;
-    int solutionBuffer;
-    public bool toClick = false;
-    public int givenType = 0;
-
+    public bool toClick = false; //
+    public int givenType = 0; //
+    bool onRun = true;
     // Use this for initialization
     void Start () {
         for (int i=0; i<4; i++)
@@ -64,11 +57,16 @@ public class mainScript : MonoBehaviour {
             platformClone.gameObject.name = "platform" + i.ToString();
             platformClone.SendMessage("OnInstantiation", i);
         }
-        //Question();
+        
     }
-	
+    
 	// Update is called once per frame
 	void Update () {
+        if (onRun)
+        {
+            Question();
+            onRun = false;
+        }
         //ShadowClone1.GetComponent<shadowScript>().OnQuestion(69);
         if (toClick)
         {
@@ -82,17 +80,8 @@ public class mainScript : MonoBehaviour {
     public void Clicked(int type)
     {
         //this stuff is done later in Question(). It seems more fitting to check there.
-        
-        if (type == solutionShadow)
-        {
-            score++;
-        }
-        else
-        {
-            score--;
-        }
-        solutionBuffer = type;
-
+        if (type == solutionShadow){score++;}
+        else{score--;}
         Question();
     }
 
@@ -141,8 +130,6 @@ public class mainScript : MonoBehaviour {
                     noRepeats = rand.Next(-11, 144);
                 }
                 SendData(i, noRepeats);
-                
-                
             }
         }
     }

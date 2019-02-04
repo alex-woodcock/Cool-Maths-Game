@@ -11,13 +11,7 @@ public class shadowScript : MonoBehaviour {
     TextMesh textMesh;
     public Canvas myCanvas;
     public Sprite sprite0, sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sprite8, sprite9;
-    //mainScript mainScriptObject = new mainScript();
     int animFrame;
-    //Random random = new Random();
-    //0 = blue
-    //1 = green
-    //2 = red
-    //3 = yellow
 
     // Use this for initialization
     void Start () {
@@ -33,22 +27,7 @@ public class shadowScript : MonoBehaviour {
         if (animFrame>20)
         {
             animFrame = 0;
-            //this.GetType().GetField("myVar").GetValue(this)
-            //GetComponent<SpriteRenderer>().sprite = string.Concat("sprite", Convert.ToInt32(UnityEngine.Random.Range(0, 10)).ToString());
-            //it WORKS
             GetComponent<SpriteRenderer>().sprite = (Sprite)this.GetType().GetField(string.Concat("sprite", Convert.ToInt32(UnityEngine.Random.Range(0, 10)).ToString())).GetValue(this) ;
-        }
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (mouseOver)
-            {
-                Debug.Log("woooo");
-            }
-            else
-            {
-                Debug.Log("reee");
-            }
-            
         }
     }
 
@@ -56,11 +35,6 @@ public class shadowScript : MonoBehaviour {
     {
         textMesh.text = intToInput.ToString();
         answer = intToInput;
-    }
-
-    void MoveAnim()
-    {
-
     }
 
     void OnInstantiation(int typeData)
@@ -78,7 +52,7 @@ public class shadowScript : MonoBehaviour {
         {
             //Debug.Log("reee");
             GameObject.Find("mainController").GetComponent<mainScript>().toClick = true;
-            GameObject.Find("mainController").GetComponent<mainScript>().givenType = type;
+            GameObject.Find("mainController").GetComponent<mainScript>().givenType = type+1;
             //mainScript.Clicked(type);
         }
     }

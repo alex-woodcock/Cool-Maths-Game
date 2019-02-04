@@ -743,13 +743,14 @@ MonoBehaviour:
   Shadow: {fileID: 1405123233755138, guid: 9acdaa36615247f41b3d101487aaf202, type: 2}
   Platform: {fileID: 1876974638190474, guid: e13413de2ae613944b64770d9e56f69d, type: 2}
   ShadowClone0: {fileID: 0}
-  SCS0: {fileID: 0}
   ShadowClone1: {fileID: 0}
-  SCS1: {fileID: 0}
   ShadowClone2: {fileID: 0}
-  SCS2: {fileID: 0}
   ShadowClone3: {fileID: 0}
+  SCS0: {fileID: 0}
+  SCS1: {fileID: 0}
+  SCS2: {fileID: 0}
   SCS3: {fileID: 0}
+  solutionShadow: 0
   questionString: 
   score: 0
   toClick: 0
