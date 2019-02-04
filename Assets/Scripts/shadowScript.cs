@@ -50,10 +50,8 @@ public class shadowScript : MonoBehaviour {
     {
         if (mouseOver)
         {
-            //Debug.Log("reee");
-            GameObject.Find("mainController").GetComponent<mainScript>().toClick = true;
-            GameObject.Find("mainController").GetComponent<mainScript>().givenType = type+1;
-            //mainScript.Clicked(type);
+            GameObject.Find("mainController").GetComponent<mainScript>().Clicked(type);
+            GameObject.Find("Player").GetComponent<playerScript>().Animate(type);
         }
     }
 }

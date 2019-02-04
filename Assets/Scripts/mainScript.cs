@@ -28,7 +28,7 @@ public class mainScript : MonoBehaviour {
     void Start () {
         for (int i=0; i<4; i++)
         {
-            GameObject shadowClone = Instantiate(Shadow, new Vector3((i-1)*3+0.5f, -1f,-1f), Quaternion.Euler(new Vector3(0,0,0)));
+            GameObject shadowClone = Instantiate(Shadow, new Vector3((i*1.2f-1)*3+0.5f, -1.5f,-1f), Quaternion.Euler(new Vector3(0,0,0)));
             shadowClone.gameObject.name = "shadow"+i.ToString();
             //shadowClone.GetComponent("Canvas").name = "Canvas" + i.ToString();
             shadowClone.SendMessage("OnInstantiation", i);
@@ -53,7 +53,7 @@ public class mainScript : MonoBehaviour {
                 ShadowClone3 = shadowClone;
                 SCS3 = ShadowClone3.GetComponent<shadowScript>();
             }
-            GameObject platformClone = Instantiate(Platform, new Vector2((i - 1) * 3 + 0.5f, -1.25f), Quaternion.Euler(new Vector3(0, 0, 0)));
+            GameObject platformClone = Instantiate(Platform, new Vector2((i*1.2f - 1) * 3 + 0.5f, -1.75f), Quaternion.Euler(new Vector3(0, 0, 0)));
             platformClone.gameObject.name = "platform" + i.ToString();
             platformClone.SendMessage("OnInstantiation", i);
         }
@@ -68,11 +68,13 @@ public class mainScript : MonoBehaviour {
             onRun = false;
         }
         //ShadowClone1.GetComponent<shadowScript>().OnQuestion(69);
+        /*
         if (toClick)
         {
             toClick = false;
             Clicked(givenType);
         }
+        */
         //Question();
         //Shadow.SendMessage("OnQuestion", 69);
 	}
@@ -90,7 +92,7 @@ public class mainScript : MonoBehaviour {
         operatorKey = rand.Next(0, 3);///////TODO - THIS DOESNT ALLOW FOR DIVISION CAUSE DIVISION IS HARD
         numberOne = rand.Next(1, 12);
         numberTwo = rand.Next(1, 12);
-        solutionShadow = rand.Next(1, 5);
+        solutionShadow = rand.Next(0, 4);
         questionString = numberOne.ToString();
         if (operatorKey==0)
         {
@@ -113,7 +115,7 @@ public class mainScript : MonoBehaviour {
             solution = numberOne / numberTwo;
         }
         questionString += numberTwo.ToString()+"=";
-        int iForeach = 0;
+        int iForeach = -1;
         foreach (string i in shadowClones)
         {
             noRepeats = solution;

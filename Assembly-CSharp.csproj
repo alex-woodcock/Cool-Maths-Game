@@ -65,6 +65,7 @@
     <Compile Include="Assets\platformScriptBackUp.cs" />
     <Compile Include="Assets\Scripts\mainScript.cs" />
     <Compile Include="Assets\Scripts\platformScript.cs" />
+    <Compile Include="Assets\Scripts\playerScript.cs" />
     <Compile Include="Assets\Scripts\shadowScript.cs" />
     <Compile Include="Assets\Scripts\textBoxScript.cs" />
     <Compile Include="Assets\Scripts\UICanvasScript.cs" />
