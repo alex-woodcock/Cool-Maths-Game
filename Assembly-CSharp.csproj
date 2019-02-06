@@ -63,6 +63,8 @@
   <ItemGroup>
     <Compile Include="Assets\mainScriptBackUp.cs" />
     <Compile Include="Assets\platformScriptBackUp.cs" />
+    <Compile Include="Assets\Scripts\audioScript.cs" />
+    <Compile Include="Assets\Scripts\healthScript.cs" />
     <Compile Include="Assets\Scripts\mainScript.cs" />
     <Compile Include="Assets\Scripts\platformScript.cs" />
     <Compile Include="Assets\Scripts\playerScript.cs" />

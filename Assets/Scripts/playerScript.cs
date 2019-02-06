@@ -14,24 +14,24 @@ public class playerScript : MonoBehaviour {
 		
 	}
 
-    public void Animate(int shadow)
+    public void Animate(int target)
     {
-        Debug.Log(shadow);
-        if (shadow == 0)
+        Debug.Log(target);
+        if (target == 0)
         {
-            anim.Play("playerBlue");
+            anim.Play("playerAttackBlue");
         }
-        else if (shadow == 1)
+        else if (target == 1)
         {
-            anim.Play("playerGreen");
+            anim.Play("playerAttackGreen");
         }
-        else if (shadow == 2)
+        else if (target == 2)
         {
-            anim.Play("playerRed");
+            anim.Play("playerAttackRed");
         }
         else
         {
-            anim.Play("playerYellow");
+            anim.Play("playerAttackYellow");
         }
     }
 }

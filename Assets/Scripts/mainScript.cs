@@ -19,16 +19,20 @@ public class mainScript : MonoBehaviour {
     int solution=0;
     public int solutionShadow = 0;
     public string questionString = "";
-    public int score;
+    public int internalScore;
+    public int totalScore;
+    public int health = 100;
+    public int damage = 0;
     int noRepeats;
     public bool toClick = false; //
     public int givenType = 0; //
     bool onRun = true;
     // Use this for initialization
     void Start () {
+        InvokeRepeating("EverySecond", 0.0f, 1.0f);
         for (int i=0; i<4; i++)
         {
-            GameObject shadowClone = Instantiate(Shadow, new Vector3((i*1.2f-1)*3+0.5f, -1.5f,-1f), Quaternion.Euler(new Vector3(0,0,0)));
+            GameObject shadowClone = Instantiate(Shadow, new Vector3((i*1.2f-1)*3+0.5f, -2.5f,-1f), Quaternion.Euler(new Vector3(0,0,0)));
             shadowClone.gameObject.name = "shadow"+i.ToString();
             //shadowClone.GetComponent("Canvas").name = "Canvas" + i.ToString();
             shadowClone.SendMessage("OnInstantiation", i);
@@ -53,7 +57,7 @@ public class mainScript : MonoBehaviour {
                 ShadowClone3 = shadowClone;
                 SCS3 = ShadowClone3.GetComponent<shadowScript>();
             }
-            GameObject platformClone = Instantiate(Platform, new Vector2((i*1.2f - 1) * 3 + 0.5f, -1.75f), Quaternion.Euler(new Vector3(0, 0, 0)));
+            GameObject platformClone = Instantiate(Platform, new Vector2((i*1.2f - 1) * 3 + 0.5f, -2.75f), Quaternion.Euler(new Vector3(0, 0, 0)));
             platformClone.gameObject.name = "platform" + i.ToString();
             platformClone.SendMessage("OnInstantiation", i);
         }
@@ -62,38 +66,66 @@ public class mainScript : MonoBehaviour {
     
 	// Update is called once per frame
 	void Update () {
-        if (onRun)
+        if (health<1)
         {
-            Question();
-            onRun = false;
+            Debug.Log("u lose");
         }
-        //ShadowClone1.GetComponent<shadowScript>().OnQuestion(69);
-        /*
-        if (toClick)
+        else
         {
-            toClick = false;
-            Clicked(givenType);
+            if (internalScore != 10)
+            {
+                if (onRun)
+                {
+                    Question();
+                    onRun = false;
+                }
+                //ShadowClone1.GetComponent<shadowScript>().OnQuestion(69);
+                /*
+                if (toClick)
+                {
+                    toClick = false;
+                    Clicked(givenType);
+                }
+                */
+                //Question();
+                //Shadow.SendMessage("OnQuestion", 69);
+            }
+            else
+            {
+                Debug.Log("win");
+                internalScore = 0;
+                damage = damage + 5;
+            }
         }
-        */
-        //Question();
-        //Shadow.SendMessage("OnQuestion", 69);
-	}
+        
+    }
 
     public void Clicked(int type)
     {
         //this stuff is done later in Question(). It seems more fitting to check there.
-        if (type == solutionShadow){score++;}
-        else{score--;}
+        if (type == solutionShadow){internalScore++; totalScore++; health = 100; }
+        else{internalScore--; totalScore--; }
+        
         Question();
     }
 
     void Question()
     {
         operatorKey = rand.Next(0, 3);///////TODO - THIS DOESNT ALLOW FOR DIVISION CAUSE DIVISION IS HARD
-        numberOne = rand.Next(1, 12);
-        numberTwo = rand.Next(1, 12);
+        numberOne = rand.Next(1,13);
+        numberTwo = rand.Next(1, 13);
         solutionShadow = rand.Next(0, 4);
         questionString = numberOne.ToString();
+        /*
+        if (operatorKey == 1)
+        {
+            numberOne = rand.Next(1, 13);
+            while (numberTwo > numberOne)
+            {
+                numberTwo = rand.Next(1, 13);
+            }
+        }
+        */
         if (operatorKey==0)
         {
             questionString += "+";
@@ -114,7 +146,10 @@ public class mainScript : MonoBehaviour {
             questionString += "/";
             solution = numberOne / numberTwo;
         }
+        
+        
         questionString += numberTwo.ToString()+"=";
+        questionString = "SCORE: " + totalScore.ToString() + "    " + questionString;
         int iForeach = -1;
         foreach (string i in shadowClones)
         {
@@ -134,6 +169,11 @@ public class mainScript : MonoBehaviour {
                 SendData(i, noRepeats);
             }
         }
+    }
+
+    void EverySecond()
+    {
+        health=health-damage;
     }
 
     void SendData(string address, int data)
