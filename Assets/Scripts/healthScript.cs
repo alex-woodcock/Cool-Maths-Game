@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class healthScript : MonoBehaviour {
-    float posX = 4;
+    float posX = 2;
     float posY = 4;
     public int hp = 100;
     float xScale = 4f;
@@ -24,7 +24,7 @@ public class healthScript : MonoBehaviour {
         hp = mainScript.health;
         xScale = 4f * hp / 100f;
         transform.localScale = new Vector2(xScale, yScale);
-        posX = hp / 25f - 0.01f*(100-hp);
+        posX = hp / 25f - 0.01f*(100-hp)-2;
         transform.position = new Vector2(posX, posY);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class mainScript : MonoBehaviour {
     public GameObject Shadow;
@@ -27,6 +28,10 @@ public class mainScript : MonoBehaviour {
     public bool toClick = false; //
     public int givenType = 0; //
     bool onRun = true;
+    public int hideCount = 0;
+    public int hiddenCount = 0;
+    int abilityOneCharge = 10;
+    int abilityOneSlider = 100;
     // Use this for initialization
     void Start () {
         InvokeRepeating("EverySecond", 0.0f, 1.0f);
@@ -103,36 +108,50 @@ public class mainScript : MonoBehaviour {
     public void Clicked(int type)
     {
         //this stuff is done later in Question(). It seems more fitting to check there.
-        if (type == solutionShadow){internalScore++; totalScore++; health = 100; }
-        else{internalScore--; totalScore--; }
+        if (type == solutionShadow){internalScore++; totalScore++; health = 100; if (abilityOneCharge <= 10) { abilityOneCharge++; } }
+        else{internalScore--; totalScore--; if (abilityOneCharge > 0) { abilityOneCharge = abilityOneCharge - 2; } }
         
         Question();
     }
 
+    public bool IsPrime(int number)
+    {
+
+        if (number == 1) return false;
+        if (number == 2) return true;
+
+        if (number % 2 == 0) return false; // Even number     
+
+        for (int i = 2; i < number; i++)
+        { // Advance from two to include correct calculation for '4'
+            if (number % i == 0) return false;
+        }
+
+        return true;
+
+    }
+
     void Question()
     {
-        operatorKey = rand.Next(0, 3);///////TODO - THIS DOESNT ALLOW FOR DIVISION CAUSE DIVISION IS HARD
+        GameObject.Find("AbilityOne").GetComponentInChildren<Slider>().value = 1f- 0.1f * abilityOneCharge;
+        operatorKey = rand.Next(0, 4);///////TODO - THIS DOESNT ALLOW FOR DIVISION CAUSE DIVISION IS HARD
         numberOne = rand.Next(1,13);
         numberTwo = rand.Next(1, 13);
         solutionShadow = rand.Next(0, 4);
-        questionString = numberOne.ToString();
-        /*
-        if (operatorKey == 1)
-        {
-            numberOne = rand.Next(1, 13);
-            while (numberTwo > numberOne)
-            {
-                numberTwo = rand.Next(1, 13);
-            }
-        }
-        */
+        //questionString = numberOne.ToString(); //obsolete by placing it after any changes that might happen to numberOne
+        questionString = "";//needed to reset qstring after ^ that got removed
         if (operatorKey==0)
         {
             questionString += "+";
             solution = numberOne + numberTwo;
         }
-        else if (operatorKey == 1)
+        else if (operatorKey == 1) //subtract
         {
+            //numberOne = rand.Next(1, 13); //unnecessary
+            while (numberTwo > numberOne)
+            {
+                numberTwo = rand.Next(1, 13);
+            }
             questionString += "-";
             solution = numberOne - numberTwo;
         }
@@ -143,14 +162,31 @@ public class mainScript : MonoBehaviour {
         }
         else
         {
+            /*
+            if (IsPrime(numberOne)) //why this? // pretty sure this literally just excludes 11. Still worth having tho prolly
+            {
+                numberOne = rand.Next(1, 13);
+            }
+                while (((float)numberOne / (float)numberTwo) % 1 != 0) //1,2,3,4,5,6,7,8,9,10,11,12. / 1,2,3,4,5,6,7,8,9,10,11,12
+                { // 7/3=2.333 2.333%1 = 0.333   0.333!=0 so \/
+                    numberTwo = rand.Next(1, 13); //random random random until 7, right?
+                }
             questionString += "/";
-            solution = numberOne / numberTwo;
+            solution = numberOne / numberTwo; //solution is an int. This is okay because the result should always be an integer.
+            */
+            solution = numberOne;
+            numberOne = numberOne * numberTwo;
+            questionString += "/";
         }
-        
-        
+
+        questionString = numberOne.ToString()+questionString;
         questionString += numberTwo.ToString()+"=";
         questionString = "SCORE: " + totalScore.ToString() + "    " + questionString;
         int iForeach = -1;
+        //if (true)//(hideCount>0)
+        //{
+        //    hiddenCount = 2;
+        //}
         foreach (string i in shadowClones)
         {
             noRepeats = solution;
@@ -164,7 +200,14 @@ public class mainScript : MonoBehaviour {
             {
                 while (noRepeats==solution)
                 {
-                    noRepeats = rand.Next(-11, 144);
+                    if (hiddenCount>0)
+                    {
+                        SendDataTempVar = (shadowScript)GetType().GetField(i).GetValue(this);
+                        SendDataTempVar.Hide();
+                        hiddenCount--;
+                        Debug.Log("howsitgoin");
+                    }
+                    noRepeats = rand.Next(0, 144);
                 }
                 SendData(i, noRepeats);
             }
@@ -174,6 +217,10 @@ public class mainScript : MonoBehaviour {
     void EverySecond()
     {
         health=health-damage;
+        if (health <0)
+        {
+            health = 0;
+        }
     }
 
     void SendData(string address, int data)
@@ -182,4 +229,43 @@ public class mainScript : MonoBehaviour {
         SendDataTempVar.SetText(data);
         GameObject.Find("QuestionTextBox").GetComponent<textBoxScript>().text = questionString;
     }
+
+    public void AbilityOne()
+    {
+        //if (abilityOneCharge >= 10) //irrelevant after GetCharges();
+        //{
+            abilityOneCharge = 0;
+            hideCount = 2;
+            for (int i = 0; i < 4; i++)
+            {
+                if (i != solutionShadow && hideCount > 0)
+                {
+                    hideCount--;
+                    GameObject.Find("shadow" + i.ToString()).GetComponent<shadowScript>().Hide();
+                }
+            }
+        //}
+    }
+
+    public bool GetCharges(int abilityNum)
+    {
+        if (abilityNum == 1 && abilityOneCharge >=10)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+
 }
+/*
+Ability Ideas
+Healing one - resets the timer
+Get rid of 2 wrong answers and reset the timer
+Increase the time on the questions but you get fewer points
+Reduce the time on the questions but you get more points
+*/

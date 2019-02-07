@@ -34,4 +34,10 @@ public class playerScript : MonoBehaviour {
             anim.Play("playerAttackYellow");
         }
     }
+
+    public void AbilityOne()
+    {
+        Debug.Log("playerScript RECIEVE");
+        anim.Play("ultimate");
+    }
 }

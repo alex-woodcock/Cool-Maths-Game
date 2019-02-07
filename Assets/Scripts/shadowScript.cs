@@ -12,6 +12,7 @@ public class shadowScript : MonoBehaviour {
     public Canvas myCanvas;
     public Sprite sprite0, sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sprite8, sprite9;
     int animFrame;
+    
 
     // Use this for initialization
     void Start () {
@@ -33,6 +34,7 @@ public class shadowScript : MonoBehaviour {
 
     public void SetText(int intToInput)
     {
+        Show();
         textMesh.text = intToInput.ToString();
         answer = intToInput;
     }
@@ -53,5 +55,20 @@ public class shadowScript : MonoBehaviour {
             GameObject.Find("mainController").GetComponent<mainScript>().Clicked(type);
             GameObject.Find("Player").GetComponent<playerScript>().Animate(type);
         }
+    }
+
+    public void Hide()
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponentInChildren<TextMesh>().text = "";
+        
+    }
+
+    public void Show()
+    {
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<BoxCollider>().enabled = true;
+        GetComponentInChildren<TextMesh>().text = "";
     }
 }
