@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class mainScript : MonoBehaviour {
     public GameObject Shadow;
@@ -34,6 +35,7 @@ public class mainScript : MonoBehaviour {
     int abilityOneSlider = 100;
     // Use this for initialization
     void Start () {
+        DontDestroyOnLoad(this);
         InvokeRepeating("EverySecond", 0.0f, 1.0f);
         for (int i=0; i<4; i++)
         {
@@ -68,12 +70,18 @@ public class mainScript : MonoBehaviour {
         }
         
     }
-    
-	// Update is called once per frame
-	void Update () {
+
+    private void Awake()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (health<1)
         {
-            Debug.Log("u lose");
+            health = 100;
+            Lose();
         }
         else
         {
@@ -101,6 +109,14 @@ public class mainScript : MonoBehaviour {
                 internalScore = 0;
                 damage = damage + 5;
             }
+        }
+        if (abilityOneCharge>=10)
+        {
+            GameObject.Find("AbilityOne").GetComponentInChildren<Slider>().enabled = false;
+        }
+        else
+        {
+            GameObject.Find("AbilityOne").GetComponentInChildren<Slider>().enabled = true;
         }
         
     }
@@ -234,21 +250,24 @@ public class mainScript : MonoBehaviour {
     {
         //if (abilityOneCharge >= 10) //irrelevant after GetCharges();
         //{
-            abilityOneCharge = 0;
-            hideCount = 2;
-            for (int i = 0; i < 4; i++)
+        abilityOneCharge = 0;
+        //GameObject.Find("AbilityOne").GetComponentInChildren<Slider>().enabled = true;
+        GameObject.Find("AbilityOne").GetComponentInChildren<Slider>().value = 1f;
+        hideCount = 2;
+        for (int i = 0; i < 4; i++)
+        {
+            if (i != solutionShadow && hideCount > 0)
             {
-                if (i != solutionShadow && hideCount > 0)
-                {
-                    hideCount--;
-                    GameObject.Find("shadow" + i.ToString()).GetComponent<shadowScript>().Hide();
-                }
+                hideCount--;
+                GameObject.Find("shadow" + i.ToString()).GetComponent<shadowScript>().Hide();
             }
+        }
         //}
     }
 
     public bool GetCharges(int abilityNum)
     {
+        /*
         if (abilityNum == 1 && abilityOneCharge >=10)
         {
             return true;
@@ -257,9 +276,24 @@ public class mainScript : MonoBehaviour {
         {
             return false;
         }
+        */
+        return true;
     }
 
+    void Lose()
+    {
+        SceneManager.LoadScene("VictoryScene");
+        //GameObject.Find("Canvas").GetComponentInChildren<textBoxScript>().text = "YOU SCORED: " + totalScore + "\n\nTOP SCORE: " + "86";
+        Destroy(GameObject.Find("mainController"));
+        if (SceneManager.GetActiveScene().name != "VictoryScene")
+        {
+            
+            
+            
+        }
+        
 
+    }
 
 }
 /*

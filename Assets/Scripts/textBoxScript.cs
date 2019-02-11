@@ -7,7 +7,7 @@ public class textBoxScript : MonoBehaviour {
     public string text;
 	// Use this for initialization
 	void Start () {
-        GetComponent<TextMeshProUGUI>().text = "blahblah";
+        GetComponent<TextMeshProUGUI>().text = "";
 	}
 	
 	// Update is called once per frame

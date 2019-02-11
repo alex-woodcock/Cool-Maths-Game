@@ -25,6 +25,7 @@ public class healthScript : MonoBehaviour {
         xScale = 4f * hp / 100f;
         transform.localScale = new Vector2(xScale, yScale);
         posX = hp / 25f - 0.01f*(100-hp)-2;
-        transform.position = new Vector2(posX, posY);
+        transform.position = new Vector3(posX, posY, -1);
+        //z of -1 stops it from defaulting to a z of 0 when given a vector 2 location, and z fighting with its backdrop and the background
     }
 }

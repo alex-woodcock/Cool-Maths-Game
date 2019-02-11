@@ -35,4 +35,9 @@ public class buttonScript : MonoBehaviour {
         }
         
     }
+
+    public void VictoryButtonContinue()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
 }
