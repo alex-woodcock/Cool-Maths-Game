@@ -4,6 +4,9 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System.IO;
+
 
 public class mainScript : MonoBehaviour {
     public GameObject Shadow;
@@ -33,9 +36,14 @@ public class mainScript : MonoBehaviour {
     public int hiddenCount = 0;
     int abilityOneCharge = 10;
     int abilityOneSlider = 100;
+
+    public TextMeshProUGUI victoryScreenText;
     // Use this for initialization
     void Start () {
-        DontDestroyOnLoad(this);
+        //victoryScreenText = GameObject.Find("")
+        //victoryScreenText = GameObject.Find("Canvas").GetComponentInChildren<textBoxScript>();
+        //victoryScreenText = 
+        //DontDestroyOnLoad(this);
         InvokeRepeating("EverySecond", 0.0f, 1.0f);
         for (int i=0; i<4; i++)
         {
@@ -280,17 +288,42 @@ public class mainScript : MonoBehaviour {
         return true;
     }
 
+    static void lineChanger(string newText, string fileName, int line_to_edit)
+    {
+        string[] arrLine = File.ReadAllLines(fileName);
+        arrLine[line_to_edit] = newText;
+        File.WriteAllLines(fileName, arrLine);
+    }
+
     void Lose()
     {
+        string path = "Assets/Resources/SaveFile.txt";
+        //StreamWriter writer = new StreamWriter(path, true);
+        string[] lines = File.ReadAllLines(path);
+        //writer.Write()
+        lines[0] = totalScore.ToString();
+        //File.WriteAllText(path, "");
+        if (Convert.ToInt32(lines[1])<Convert.ToInt32(lines[0]))
+        {
+            lines[1] = lines[0];
+        }
+        lineChanger(lines[0], path, 0);
+        lineChanger(lines[1], path, 1);
+        //writer = new StreamWriter(path, true);
+        //writer.WriteLine(lines[0]);
+        //writer.WriteLine(lines[1]);
+        //writer.Close();
+
+        //GameObject.Find("mainController").GetComponent<handleTextfileScript>().WriteString(totalScore.ToString());
         SceneManager.LoadScene("VictoryScene");
         //GameObject.Find("Canvas").GetComponentInChildren<textBoxScript>().text = "YOU SCORED: " + totalScore + "\n\nTOP SCORE: " + "86";
-        Destroy(GameObject.Find("mainController"));
-        if (SceneManager.GetActiveScene().name != "VictoryScene")
-        {
-            
-            
-            
-        }
+        //Destroy(GameObject.Find("mainController"));
+        //if (SceneManager.GetActiveScene().name != "VictoryScene")
+        //{
+            //
+            //
+            //
+        //}
         
 
     }
