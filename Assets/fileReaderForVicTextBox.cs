@@ -11,6 +11,8 @@ public class fileReaderForVicTextBox : MonoBehaviour {
     void Start () {
         GetComponent<TextMeshProUGUI>().text = "";
         lines = File.ReadAllLines(path);
+        GetComponent<TextMeshProUGUI>().fontSize = Screen.height / 13.33f;
+        GetComponent<RectTransform>().sizeDelta = new Vector2((float)Screen.height / 1440f * 1200f, (float)Screen.width / 2960f * 600f);
     }
 	
 	// Update is called once per frame
