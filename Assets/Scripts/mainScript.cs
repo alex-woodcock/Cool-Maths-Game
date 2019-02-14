@@ -136,7 +136,7 @@ public class mainScript : MonoBehaviour {
     {
         //this stuff is done later in Question(). It seems more fitting to check there.
         if (type == solutionShadow){internalScore++; totalScore++; health = 100; if (abilityOneCharge <= 10) { abilityOneCharge++; /*audio.Play();*/} }
-        else{internalScore--; totalScore--; if (abilityOneCharge > 0) { abilityOneCharge = abilityOneCharge - 2; } }
+        else{internalScore++; /*totalScore--;*/ if (abilityOneCharge > 0) { abilityOneCharge = abilityOneCharge - 2; } }
         
         Question();
     }
