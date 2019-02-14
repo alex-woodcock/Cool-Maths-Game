@@ -13,7 +13,8 @@ public class mainScript : MonoBehaviour {
     public GameObject Platform;
     public GameObject ShadowClone0, ShadowClone1, ShadowClone2, ShadowClone3;
     public shadowScript SCS0, SCS1, SCS2, SCS3;
-    
+    //public AudioSource audio;
+    //public AudioClip audioClip;
     shadowScript SendDataTempVar;
     System.Random rand = new System.Random();
     List<string> shadowClones = new List<string>(4) { "SCS0", "SCS1", "SCS2", "SCS3" };
@@ -40,6 +41,8 @@ public class mainScript : MonoBehaviour {
     public TextMeshProUGUI victoryScreenText;
     // Use this for initialization
     void Start () {
+        //audio.clip = audioClip;
+        
         //victoryScreenText = GameObject.Find("")
         //victoryScreenText = GameObject.Find("Canvas").GetComponentInChildren<textBoxScript>();
         //victoryScreenText = 
@@ -132,7 +135,7 @@ public class mainScript : MonoBehaviour {
     public void Clicked(int type)
     {
         //this stuff is done later in Question(). It seems more fitting to check there.
-        if (type == solutionShadow){internalScore++; totalScore++; health = 100; if (abilityOneCharge <= 10) { abilityOneCharge++; } }
+        if (type == solutionShadow){internalScore++; totalScore++; health = 100; if (abilityOneCharge <= 10) { abilityOneCharge++; /*audio.Play();*/} }
         else{internalScore--; totalScore--; if (abilityOneCharge > 0) { abilityOneCharge = abilityOneCharge - 2; } }
         
         Question();
