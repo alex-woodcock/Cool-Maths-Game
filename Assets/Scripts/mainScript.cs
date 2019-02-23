@@ -41,8 +41,9 @@ public class mainScript : MonoBehaviour {
     public TextMeshProUGUI victoryScreenText;
     // Use this for initialization
     void Start () {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         //audio.clip = audioClip;
-        
+
         //victoryScreenText = GameObject.Find("")
         //victoryScreenText = GameObject.Find("Canvas").GetComponentInChildren<textBoxScript>();
         //victoryScreenText = 
