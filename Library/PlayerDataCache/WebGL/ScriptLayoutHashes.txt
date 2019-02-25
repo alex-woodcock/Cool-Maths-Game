@@ -1,6 +1,6 @@
 WebGL
 PlayerPath?
-C:/Users/477689/cool maths game - html
+C:/Users/477689/maths game online
 SceneListBegin?
 Assets/Scenes/StartScene.unity
 Assets/Scenes/MainScene.unity

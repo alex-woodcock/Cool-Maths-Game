@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-C:/Users/477689/Cool Maths Game.exe
+C:/GitHub/cool maths game final build test/Cool Maths Game.exe
 SceneListBegin?
 Assets/Scenes/StartScene.unity
 Assets/Scenes/MainScene.unity
