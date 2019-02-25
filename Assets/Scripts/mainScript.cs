@@ -37,7 +37,7 @@ public class mainScript : MonoBehaviour {
     public int hiddenCount = 0;
     int abilityOneCharge = 10;
     int abilityOneSlider = 100;
-
+    public GameObject bpworkaround;
     public TextMeshProUGUI victoryScreenText;
     // Use this for initialization
     void Start () {
@@ -136,7 +136,7 @@ public class mainScript : MonoBehaviour {
     {
         //this stuff is done later in Question(). It seems more fitting to check there.
         if (type == solutionShadow){internalScore++; totalScore++; health = 100; if (abilityOneCharge <= 10) { abilityOneCharge++; /*audio.Play();*/} }
-        else{internalScore++; /*totalScore--;*/ if (abilityOneCharge > 0) { abilityOneCharge = abilityOneCharge - 2; } }
+        else{internalScore++; health -= 40;/*totalScore--;*/ if (abilityOneCharge > 0) { abilityOneCharge = abilityOneCharge - 2; } }
         
         Question();
     }
@@ -300,6 +300,7 @@ public class mainScript : MonoBehaviour {
 
     void Lose()
     {
+        bpworkaround.GetComponent<blackWallWorkaroundScript>().show = true;
         string path = "Assets/Resources/SaveFile.txt";
         //StreamWriter writer = new StreamWriter(path, true);
         string[] lines = File.ReadAllLines(path);
@@ -316,7 +317,7 @@ public class mainScript : MonoBehaviour {
         //writer.WriteLine(lines[0]);
         //writer.WriteLine(lines[1]);
         //writer.Close();
-
+        
         //GameObject.Find("mainController").GetComponent<handleTextfileScript>().WriteString(totalScore.ToString());
         SceneManager.LoadScene("VictoryScene");
         //GameObject.Find("Canvas").GetComponentInChildren<textBoxScript>().text = "YOU SCORED: " + totalScore + "\n\nTOP SCORE: " + "86";
